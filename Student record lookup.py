@@ -1,27 +1,27 @@
 # ============================================================
-#          STUDENT RECORD SEARCHING SYSTEM
+#          STUDENT RECORD LOOKUP SYSTEM
 #                 USING BINARY SEARCH
 # ============================================================
 
 import random
 
 
-# ============================================================
+# ------------------------------------------------------------
 # GENERATE STUDENT RECORDS
-# ============================================================
+# ------------------------------------------------------------
 
 def generate_students(number_of_students):
 
     students = []
+
+    branches = ["CSE", "ECE", "IT", "EEE", "MECH"]
 
     for i in range(number_of_students):
 
         student = {
             "roll": 1001 + i,
             "name": f"Student_{i + 1}",
-            "branch": random.choice(
-                ["CSE", "ECE", "IT", "EEE", "MECH"]
-            ),
+            "branch": random.choice(branches),
             "marks": random.randint(50, 100)
         }
 
@@ -30,9 +30,9 @@ def generate_students(number_of_students):
     return students
 
 
-# ============================================================
+# ------------------------------------------------------------
 # BINARY SEARCH
-# ============================================================
+# ------------------------------------------------------------
 
 def binary_search(students, target_roll):
 
@@ -61,15 +61,15 @@ def binary_search(students, target_roll):
     return None, operations
 
 
-# ============================================================
-# CREATE 10,000 STUDENT RECORDS
-# ============================================================
+# ------------------------------------------------------------
+# CREATE STUDENT RECORDS
+# ------------------------------------------------------------
 
 NUMBER_OF_STUDENTS = 10000
 
 print("=" * 70)
-print("          STUDENT RECORD SEARCHING SYSTEM")
-print("                 USING BINARY SEARCH")
+print("             STUDENT RECORD LOOKUP SYSTEM")
+print("                    USING BINARY SEARCH")
 print("=" * 70)
 
 print("\nGenerating student records...")
@@ -89,65 +89,46 @@ print(
 )
 
 
-# ============================================================
+# ------------------------------------------------------------
 # CONTINUOUS MULTIPLE SEARCH
-# ============================================================
+# ------------------------------------------------------------
 
 while True:
 
-    print("\n")
+    print("\n" + "=" * 70)
 
     number_of_searches = int(
-        input("Enter number of roll numbers to search: ")
+        input("Enter number of roll numbers to search (0 to exit): ")
     )
 
-    # Enter 0 to exit
+    # Exit condition
     if number_of_searches == 0:
 
-        print("\nProgram ended.")
+        print("\nThank you! Program ended.")
         break
 
-    # Check for invalid negative number
     if number_of_searches < 0:
 
         print("\nPlease enter a positive number.")
         continue
 
 
-    # ========================================================
-    # OPERATION TRACKING
-    # ========================================================
+    # --------------------------------------------------------
+    # OPERATION ANALYSIS VARIABLES
+    # --------------------------------------------------------
 
     total_operations = 0
-
     successful_searches = 0
-
     failed_searches = 0
 
-    operation_counts = []
 
-
-    # ========================================================
-    # SEARCH RESULT TABLE
-    # ========================================================
-
-    print("\n" + "-" * 70)
-
-    print(
-        f"{'Roll Number':<15}"
-        f"{'Result':<15}"
-        f"{'Name':<20}"
-        f"{'Operations'}"
-    )
-
-    print("-" * 70)
-
-
-    # ========================================================
+    # --------------------------------------------------------
     # SEARCH MULTIPLE ROLL NUMBERS
-    # ========================================================
+    # --------------------------------------------------------
 
     for i in range(number_of_searches):
+
+        print("\n" + "-" * 70)
 
         target_roll = int(
             input(f"Enter roll number {i + 1}: ")
@@ -158,10 +139,6 @@ while True:
             target_roll
         )
 
-        # Store operation count
-        operation_counts.append(operations)
-
-        # Add to total
         total_operations += operations
 
 
@@ -173,12 +150,17 @@ while True:
 
             successful_searches += 1
 
-            print(
-                f"{target_roll:<15}"
-                f"{'Found':<15}"
-                f"{result['name']:<20}"
-                f"{operations}"
-            )
+            print("\n" + "=" * 70)
+            print("                    STUDENT FOUND")
+            print("=" * 70)
+
+            print(f"Roll Number : {result['roll']}")
+            print(f"Name        : {result['name']}")
+            print(f"Branch      : {result['branch']}")
+            print(f"Marks       : {result['marks']}")
+            print(f"Operations  : {operations}")
+
+            print("=" * 70)
 
 
         # ----------------------------------------------------
@@ -189,36 +171,33 @@ while True:
 
             failed_searches += 1
 
-            print(
-                f"{target_roll:<15}"
-                f"{'Not Found':<15}"
-                f"{'-':<20}"
-                f"{operations}"
-            )
+            print("\n" + "=" * 70)
+            print("                  STUDENT NOT FOUND")
+            print("=" * 70)
+
+            print(f"Roll Number : {target_roll}")
+            print(f"Operations  : {operations}")
+
+            print("=" * 70)
 
 
-    # ========================================================
-    # CALCULATE OPERATION STATISTICS
-    # ========================================================
+    # --------------------------------------------------------
+    # CALCULATE AVERAGE
+    # --------------------------------------------------------
 
     average_operations = (
         total_operations / number_of_searches
     )
 
-    minimum_operations = min(operation_counts)
 
-    maximum_operations = max(operation_counts)
+    # --------------------------------------------------------
+    # SEARCH ANALYSIS
+    # --------------------------------------------------------
 
-
-    # ========================================================
-    # DISPLAY SEARCH ANALYSIS
-    # ========================================================
-
-    print("-" * 70)
-
-    print("\nSEARCH OPERATION COMPARISON")
-
-    print("-" * 70)
+    print("\n")
+    print("=" * 70)
+    print("                    SEARCH ANALYSIS")
+    print("=" * 70)
 
     print(
         f"Total Student Records          : "
@@ -250,17 +229,14 @@ while True:
         f"{average_operations:.2f}"
     )
 
-    print(
-        f"Minimum Operations             : "
-        f"{minimum_operations}"
-    )
+    print("=" * 70)
 
-    print(
-        f"Maximum Operations             : "
-        f"{maximum_operations}"
-    )
+    print("\nBinary Search Complexity:")
+    print("Best Case    : O(1)")
+    print("Average Case : O(log n)")
+    print("Worst Case   : O(log n)")
+    print("Space        : O(1)")
 
-    print("-" * 70)
+    print("=" * 70)
 
-    # The program automatically returns
-    # to "Enter number of roll numbers to search:"
+    print("\nYou can search again.")
