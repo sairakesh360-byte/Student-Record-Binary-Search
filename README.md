@@ -58,4 +58,7 @@ Design and Analysis of Algorithms Hackathon
 
 ## Team
 
-Team Members: Add your team members here.
+Team Members: CH.SRI CHARAN
+              C.SAMANTH REDDY
+              J.SAI CHARAN
+              M.SAI RAKESH
